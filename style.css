@@ -146,5 +146,15 @@ button:nth-child(2):hover{
 
 #about{
     padding: 80px 0;
-    color: 
+    color:#ababab;
+    
+}
+.row{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.about-col-1{
+    border-image-width: 10px;
+    image-resolution: 10p;
 }
