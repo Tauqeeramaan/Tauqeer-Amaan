@@ -264,44 +264,23 @@ color:  #5db9ee;
 .sub-buttons {
     margin-top: 15px; 
 }
-/* Admin Panel Styles */
-#adminPanel {
-    display: none;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #262525;
-    color: white;
-    padding: 15px;
-    border-radius: 8px;
-    border: 2px solid #3877ff;
-    z-index: 1000;
-    font-family: Poppins;
-    max-width: 250px;
+#adminView {
+display:none; 
+position: fixed; 
+top: 5%;
+right: 10px; 
+background: #262525; 
+padding: 20px; 
+border-radius: 20px; 
+z-index: 1000;
+color: #5db9ee;
 }
-
-#adminPanel h3 {
-    margin: 0 0 10px 0;
-    color: #5db9ee;
-    font-size: 1.1rem;
-}
-
-#adminPanel #visitorCount {
-    font-weight: bold;
-    color: white;
-}
-
-#logoutBtn {
-    background: #3877ff;
-    color: white;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#logoutBtn:hover {
-    background: #2a5fc7;
-    transform: translateY(-2px);
+#logoutBtn{
+margin-top: 10px; 
+padding: 5px 10px; background: #ff4444; 
+color: orange; 
+border: none; 
+border-radius: 4px; 
+cursor: pointer;
+color: #fff;
 }

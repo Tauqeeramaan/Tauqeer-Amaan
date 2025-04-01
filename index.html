@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SYED TAUQEER AMAAN-PORTFOLIO</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-        
-        <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYED TAUQEER AMAAN - PORTFOLIO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+</head>
 <body>
     <div class="portfolio-container">
         <ul class="navlist">
             <li><a href="#" class="home-button">Home</a></li>
-            <li><a href="#about">about</a></li>
-            <li><a href="https://github.com/Tauqeeramaan" target="_blank">project</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="https://github.com/Tauqeeramaan" target="_blank">Projects</a></li>
         </ul>
-       <div class="left-container">
+        <div class="left-container">
             <div class="icons">
                 <div class="github">
                     <a href="https://github.com/Tauqeeramaan" target="_blank">
@@ -37,147 +36,157 @@
                 </div>
             </div>
             <div class="content">
-                <p class="intro">Hello! I am <span>Syed Tauqeer Amaan</span><p> 
+                <p class="intro">Hello! I am <span>Syed Tauqeer Amaan</span></p> 
                 <h1>Full Stack Developer<span>(Fresher)</span></h1>
-                <p class="detail">I am keen and enthusiastic learner interested in the current new technologies. I am currently seeking a challenging 
-                    position to contribute my technical expertise and creativity to develop innovative software solutions. I am 
-                    committed to staying updated with emerging technologies to deliver cutting-edge software applications</p>
+                <p class="detail">I am keen and enthusiastic learner interested in the current new technologies. I am currently seeking a challenging position to contribute my technical expertise and creativity to develop innovative software solutions. I am committed to staying updated with emerging technologies to deliver cutting-edge software applications.</p>
                 <div class="btn-container">
                     <a href="https://wa.me/7975070310" target="_blank">
-                        <button>lets Talk</button>
+                        <button>Let's Talk</button>
                     </a>
                 </div>
             </div>
-       </div>
-       <div class="right-container"></div>    
-            <div class="design">
+        </div>
+        <div class="right-container"></div>    
+        <div class="design">
             <div class="circle"></div>
             <div class="circle"></div>
-       </div>
-    </div>
-    <div id="adminView" style="display:none;"></div>
-<section id="about">
-    <div class="about-container">
-        <div class="about-left-content">
-            <h1>Click to know more about me</h1>
-            <div class="button-group">
-                <button id="educationBtn" class="education-btn">EDUCATION</button>
-                <a href="resume.pdf" class="resume-button" target="_blank">RESUME</a>
-            </div>
-            <div id="subButtons" class="sub-buttons">
-                <button class="sub-btn">SCHOOL</button>
-                <button class="sub-btn">COLLEGE</button>
-                <button class="sub-btn">GRADUATION</button>
-            </div>
         </div>
     </div>
-</section>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-       
-        const educationBtn = document.getElementById('educationBtn');
-        const subButtons = document.getElementById('subButtons');
-        
-        educationBtn.addEventListener('click', function() {
-            if (subButtons.style.display === 'flex') {
-                subButtons.style.display = 'none';
-                this.textContent = 'EDUCATION';
-            } else {
-                subButtons.style.display = 'flex';
-                this.textContent = '▼ EDUCATION ▼';
-            }
-        });
 
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyCE2UKIQv9vxIT6pB5NFEImo6Cp4lJ6PyE",
-            authDomain: "my-portfolio-4a287.firebaseapp.com",
-            projectId: "my-portfolio-4a287",
-            storageBucket: "my-portfolio-4a287.firebasestorage.app",
-            messagingSenderId: "813926620943",
-            appId: "1:813926620943:web:52b2f1c433cc38ea14e87a",
-            measurementId: "G-HG3MJFVMBH"
-        };
-        try {
-        
+    <div id="adminView">admindashboard</div>
+    <section id="about">
+        <div class="about-container">
+            <div class="about-left-content">
+                <h1>Click to know more about me</h1>
+                <div class="button-group">
+                    <button id="educationBtn" class="education-btn">EDUCATION</button>
+                    <a href="resume.pdf" class="resume-button" id="resumeDownload" download="SYED_TAUQEER_AMAAN.pdf">Download Resume</a>
+                </div>
+                <div id="subButtons" class="sub-buttons" style="display:none;">
+                    <button class="sub-btn">SCHOOL</button>
+                    <button class="sub-btn">COLLEGE</button>
+                    <button class="sub-btn">GRADUATION</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Firebase
+            const firebaseConfig = {
+                apiKey: "AIzaSyCE2UKIQv9vxIT6pB5NFEImo6Cp4lJ6PyE",
+                authDomain: "my-portfolio-4a287.firebaseapp.com",
+                projectId: "my-portfolio-4a287",
+                storageBucket: "my-portfolio-4a287.appspot.com",
+                messagingSenderId: "813926620943",
+                appId: "1:813926620943:web:52b2f1c433cc38ea14e87a",
+                measurementId: "G-HG3MJFVMBH"
+            };
+
             if (!firebase.apps.length) {
                 firebase.initializeApp(firebaseConfig);
-                console.log("Firebase initialized successfully");
             }
+
             const auth = firebase.auth();
             const db = firebase.firestore();
 
-        
-            function updateCounter() {
+            // Education button toggle
+            const educationBtn = document.getElementById('educationBtn');
+            const subButtons = document.getElementById('subButtons');
+            
+            educationBtn.addEventListener('click', function() {
+                if (subButtons.style.display === 'flex') {
+                    subButtons.style.display = 'none';
+                    this.textContent = 'EDUCATION';
+                } else {
+                    subButtons.style.display = 'flex';
+                    this.textContent = '▼ EDUCATION ▼';
+                }
+            });
+
+            // Resume download tracking
+            document.getElementById('resumeDownload').addEventListener('click', async function(e) {
+                try {
+                    await db.collection("downloadStats").doc("resume").set({
+                        count: firebase.firestore.FieldValue.increment(1),
+                        lastDownload: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+                } catch (error) {
+                    console.error("Download tracking error:", error);
+                }
+            });
+
+            // Admin panel functions
+            async function showAdminPanel() {
+                const panel = document.getElementById('adminView');
+                
+                try {
+                    const [visitorSnap, downloadSnap] = await Promise.all([
+                        db.collection("visitorStats").doc("counter").get(),
+                        db.collection("downloadStats").doc("resume").get()
+                    ]);
+
+                    panel.innerHTML = `
+                        <h3>Admin Dashboard</h3>
+                        <p><strong>Total Visitors:</strong> ${visitorSnap.exists ? visitorSnap.data().total : 0}</p>
+                        <p><strong>Resume Downloads:</strong> ${downloadSnap.exists ? downloadSnap.data().count : 0}</p>
+                        <p><strong>Last Download:</strong> ${downloadSnap.exists ? new Date(downloadSnap.data().lastDownload.seconds * 1000).toLocaleString() : 'Never'}</p>
+                        <button id="logoutBtn">Close</button>
+                    `;
+
+                    panel.style.display = 'block';
+                    
+                    document.getElementById('logoutBtn').addEventListener('click', function() {
+                        auth.signOut();
+                        panel.style.display = 'none';
+                    });
+
+                } catch (error) {
+                    panel.innerHTML = `<div style="color:red;">Error loading stats: ${error.message}</div>`;
+                }
+            }
+
+            async function handleAdminLogin() {
+                const email = prompt("Enter admin email:");
+                if (!email) return;
+                
+                const password = prompt("Enter password:");
+                if (!password) return;
+                
+                try {
+                    await auth.signInWithEmailAndPassword(email, password);
+                    await showAdminPanel();
+                } catch (error) {
+                    alert(`Login failed: ${error.message}`);
+                }
+            }
+
+            // Check for admin access
+            if (window.location.hash === "#admin") {
+                handleAdminLogin();
+            }
+
+            // Visitor counter
+            async function updateCounter() {
                 let count = parseInt(localStorage.getItem('visitorCount')) || 0;
                 count++;
                 localStorage.setItem('visitorCount', count);
                 
                 if (count % 10 === 0) {
-                    db.collection("visitorStats").doc("counter").set({
-                        total: firebase.firestore.FieldValue.increment(10),
-                        lastUpdated: new Date()
-                    }, { merge: true }).then(() => {
-                        console.log("Count updated in Firestore");
-                    }).catch(e => {
-                        console.error("Firestore update error:", e);
-                    });
+                    try {
+                        await db.collection("visitorStats").doc("counter").set({
+                            total: firebase.firestore.FieldValue.increment(10),
+                            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                        }, { merge: true });
+                    } catch (error) {
+                        console.error("Error updating visitor count:", error);
+                    }
                 }
             }
 
-            
-            function showAdminPanel(count) {
-                const panel = document.getElementById('adminPanel');
-                document.getElementById('visitorCount').textContent = count;
-                panel.style.display = 'block';
-                
-                document.getElementById('logoutBtn').onclick = () => {
-                    auth.signOut();
-                    panel.style.display = 'none';
-                };
-            }
-
-            
-            async function handleAdminLogin() {
-                const email = prompt("Enter your admin email:");
-                if (!email) return;
-                
-                const password = prompt("Enter your password:");
-                if (!password) return;
-                
-                try {
-                    console.log("Attempting login...");
-                    await auth.signInWithEmailAndPassword(email, password);
-                    console.log("Login successful");
-                    
-                    const snapshot = await db.collection("visitorStats").doc("counter").get();
-                    const count = snapshot.exists ? snapshot.data().total : 0;
-                    showAdminPanel(count);
-                    
-                } catch (error) {
-                    console.error("Login failed:", error);
-                    alert(`Login failed: ${error.message}`);
-                }
-            }
-
-            
             updateCounter();
-            
-            if (window.location.hash === "#admin") {
-                console.log("Admin mode detected");
-                handleAdminLogin();
-            }
-
-        } catch (error) {
-            console.error("Initialization error:", error);
-            alert("System error. Please check console for details.");
-        }
-    });
-    
-</script>
-<div id="adminPanel">
-    <h3>Visitor Count: <span id="visitorCount">0</span></h3>
-    <button id="logoutBtn">Close</button>
-</div>
+        });
+    </script>
 </body>
 </html>
