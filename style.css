@@ -154,7 +154,7 @@ section {
 } 
 .education-btn {
     border: .1rem solid blue;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     border-radius: .5rem;
     cursor: pointer;
     transition: .5s ease;
@@ -168,6 +168,7 @@ color:  #5db9ee;
 .education-btn{
     background-color:  #5db9ee;
     color: #262525;
+    
 }
 .sub-buttons {
     display: none;
@@ -262,4 +263,45 @@ color:  #5db9ee;
 }
 .sub-buttons {
     margin-top: 15px; 
+}
+/* Admin Panel Styles */
+#adminPanel {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #262525;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #3877ff;
+    z-index: 1000;
+    font-family: Poppins;
+    max-width: 250px;
+}
+
+#adminPanel h3 {
+    margin: 0 0 10px 0;
+    color: #5db9ee;
+    font-size: 1.1rem;
+}
+
+#adminPanel #visitorCount {
+    font-weight: bold;
+    color: white;
+}
+
+#logoutBtn {
+    background: #3877ff;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#logoutBtn:hover {
+    background: #2a5fc7;
+    transform: translateY(-2px);
 }

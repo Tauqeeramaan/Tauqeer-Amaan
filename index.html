@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYED TAUQEER AMAAN-PORTFOLIO</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SYED TAUQEER AMAAN-PORTFOLIO</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        
+        <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    </head>
 <body>
     <div class="portfolio-container">
         <ul class="navlist">
@@ -51,7 +55,7 @@
             <div class="circle"></div>
        </div>
     </div>
-
+    <div id="adminView" style="display:none;"></div>
 <section id="about">
     <div class="about-container">
         <div class="about-left-content">
@@ -68,9 +72,9 @@
         </div>
     </div>
 </section>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+       
         const educationBtn = document.getElementById('educationBtn');
         const subButtons = document.getElementById('subButtons');
         
@@ -83,7 +87,97 @@
                 this.textContent = '▼ EDUCATION ▼';
             }
         });
+
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCE2UKIQv9vxIT6pB5NFEImo6Cp4lJ6PyE",
+            authDomain: "my-portfolio-4a287.firebaseapp.com",
+            projectId: "my-portfolio-4a287",
+            storageBucket: "my-portfolio-4a287.firebasestorage.app",
+            messagingSenderId: "813926620943",
+            appId: "1:813926620943:web:52b2f1c433cc38ea14e87a",
+            measurementId: "G-HG3MJFVMBH"
+        };
+        try {
+        
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+                console.log("Firebase initialized successfully");
+            }
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+
+        
+            function updateCounter() {
+                let count = parseInt(localStorage.getItem('visitorCount')) || 0;
+                count++;
+                localStorage.setItem('visitorCount', count);
+                
+                if (count % 10 === 0) {
+                    db.collection("visitorStats").doc("counter").set({
+                        total: firebase.firestore.FieldValue.increment(10),
+                        lastUpdated: new Date()
+                    }, { merge: true }).then(() => {
+                        console.log("Count updated in Firestore");
+                    }).catch(e => {
+                        console.error("Firestore update error:", e);
+                    });
+                }
+            }
+
+            
+            function showAdminPanel(count) {
+                const panel = document.getElementById('adminPanel');
+                document.getElementById('visitorCount').textContent = count;
+                panel.style.display = 'block';
+                
+                document.getElementById('logoutBtn').onclick = () => {
+                    auth.signOut();
+                    panel.style.display = 'none';
+                };
+            }
+
+            
+            async function handleAdminLogin() {
+                const email = prompt("Enter your admin email:");
+                if (!email) return;
+                
+                const password = prompt("Enter your password:");
+                if (!password) return;
+                
+                try {
+                    console.log("Attempting login...");
+                    await auth.signInWithEmailAndPassword(email, password);
+                    console.log("Login successful");
+                    
+                    const snapshot = await db.collection("visitorStats").doc("counter").get();
+                    const count = snapshot.exists ? snapshot.data().total : 0;
+                    showAdminPanel(count);
+                    
+                } catch (error) {
+                    console.error("Login failed:", error);
+                    alert(`Login failed: ${error.message}`);
+                }
+            }
+
+            
+            updateCounter();
+            
+            if (window.location.hash === "#admin") {
+                console.log("Admin mode detected");
+                handleAdminLogin();
+            }
+
+        } catch (error) {
+            console.error("Initialization error:", error);
+            alert("System error. Please check console for details.");
+        }
     });
+    
 </script>
+<div id="adminPanel">
+    <h3>Visitor Count: <span id="visitorCount">0</span></h3>
+    <button id="logoutBtn">Close</button>
+</div>
 </body>
 </html>
