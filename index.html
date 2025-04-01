@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>portfolio</title>
+    <title>SYED TAUQEER AMAAN-PORTFOLIO</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- Add these before other scripts -->
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <div class="portfolio-container">
         <ul class="navlist">
-            <li><a href="#">home</a></li>
-            <li><a href="#">work</a></li>
-            <li><a href="#">about</a></li>
+            <li><a href="#" class="home-button">Home</a></li>
+            <li><a href="#about">about</a></li>
+          <!-- <li><a href="#work" class="work-button">work</a></li>-->
             <li><a href="https://github.com/Tauqeeramaan" target="_blank">project</a></li>
         </ul>
        <div class="left-container">
@@ -35,8 +38,8 @@
                 </div>
             </div>
             <div class="content">
-                <p class="intro">Hlo! I am <span>Syed Tauqeer Amaan</span><p> 
-                <h1>FRESHER</h1>
+                <p class="intro">Hello! I am <span>Syed Tauqeer Amaan</span><p> 
+                <h1>Full Stack Developer<span>(Fresher)</span></h1>
                 <p class="detail">I am keen and enthusiastic learner interested in the current new technologies. I am currently seeking a challenging 
                     position to contribute my technical expertise and creativity to develop innovative software solutions. I am 
                     committed to staying updated with emerging technologies to deliver cutting-edge software applications</p>
@@ -48,12 +51,100 @@
                 </div>
             </div>
        </div>
-       <div class="right-container"></div>
+       <div class="right-container"></div>    
             <div class="design">
             <div class="circle"></div>
             <div class="circle"></div>
        </div>
     </div>
+
+<section id="about">
+    <div class="about-container">
+        <div class="about-left-content">
+            <h1>Click to know more about me</h1>
+            <div class="button-group">
+                <button id="educationBtn" class="education-btn">EDUCATION</button>
+                <a href="resume.pdf" class="resume-button" target="_blank">RESUME</a>
+            </div>
+            <div id="subButtons" class="sub-buttons">
+                <button class="sub-btn">SCHOOL</button>
+                <button class="sub-btn">COLLEGE</button>
+                <button class="sub-btn">GRADUATION</button>
+            </div>
+        </div>
     </div>
+</section>
+<!--
+<section id="work">
+    <div class="work-container">
+        <div class="work-left-content">
+            <h2>Know about my work</h2>
+            <p>I am keen and enthusiastic learner...</p>
+        </div>
+    </div>
+</section>-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Your existing button code
+        const educationBtn = document.getElementById('educationBtn');
+        const subButtons = document.getElementById('subButtons');
+        
+        educationBtn.addEventListener('click', function() {
+            if (subButtons.style.display === 'flex') {
+                subButtons.style.display = 'none';
+                this.textContent = 'EDUCATION';
+            } else {
+                subButtons.style.display = 'flex';
+                this.textContent = '▼ EDUCATION ▼';
+            }
+        });
+
+        // Firebase Code with error handling
+        try {
+            const firebaseConfig = {
+                apiKey: "ATA26@PLANETDOWAYATTgB6BNFEIno6Gp4LJ6PyE",
+                authDomain: "my-portfolio-46287.firebaseapp.com",
+                projectId: "my-portfolio-46287"
+            };
+            
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+
+            // Visitor tracking
+            let count = localStorage.getItem('visitorCount') || 0;
+            count++;
+            localStorage.setItem('visitorCount', count);
+
+            // Update Firestore (with document creation fallback)
+            if (count % 10 === 0) {
+                db.collection("stats").doc("visitors").set(
+                    { count: firebase.firestore.FieldValue.increment(10) },
+                    { merge: true }
+                ).catch(e => console.error("Firestore error:", e));
+            }
+
+            // Admin check
+            if (window.location.hash === "#admin") {
+                const email = prompt("Admin email:");
+                const password = prompt("Password:");
+                
+                if (email && password) {
+                    firebase.auth().signInWithEmailAndPassword(email, password)
+                        .then(() => {
+                            db.collection("stats").doc("visitors").get()
+                                .then(doc => {
+                                    if (doc.exists) {
+                                        alert(`Total visitors: ${doc.data().count}`);
+                                    }
+                                });
+                        })
+                        .catch(err => alert("Access denied: " + err.message)); // Fixed extra parenthesis
+                }
+            }
+        } catch (e) {
+            console.error("Firebase initialization failed", e);
+        }
+    });
+</script>
 </body>
 </html>
