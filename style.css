@@ -152,11 +152,6 @@ section {
     min-height: 100vh;
     padding: 2rem;
 } 
-#work {
-    background: #262525; 
-    padding: 80px 0;
-    color:#fff;
-}
 .education-btn {
     border: .1rem solid blue;
     font-size: 1.1rem;
@@ -206,15 +201,7 @@ color:  #5db9ee;
     width: 100%;
     position: relative;
 }
-#work {
-    display: flex;
-}
-.work-container {
-    display: flex;
-    width: 100%;
-    position: relative;
-}
-.work-left-content {
+.about-left-content {
     padding-top: 80px;
 }
 .navlist {

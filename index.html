@@ -6,19 +6,12 @@
     <title>SYED TAUQEER AMAAN-PORTFOLIO</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <!-- Add version parameter to prevent caching issues -->
-<link rel="stylesheet" href="style.css?v=1.1">
-    <!-- Add these before other scripts -->
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <div class="portfolio-container">
         <ul class="navlist">
             <li><a href="#" class="home-button">Home</a></li>
             <li><a href="#about">about</a></li>
-          <!-- <li><a href="#work" class="work-button">work</a></li>-->
             <li><a href="https://github.com/Tauqeeramaan" target="_blank">project</a></li>
         </ul>
        <div class="left-container">
@@ -49,7 +42,6 @@
                     <a href="https://wa.me/7975070310" target="_blank">
                         <button>lets Talk</button>
                     </a>
-                        
                 </div>
             </div>
        </div>
@@ -76,18 +68,9 @@
         </div>
     </div>
 </section>
-<!--
-<section id="work">
-    <div class="work-container">
-        <div class="work-left-content">
-            <h2>Know about my work</h2>
-            <p>I am keen and enthusiastic learner...</p>
-        </div>
-    </div>
-</section>-->
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Your existing button code
         const educationBtn = document.getElementById('educationBtn');
         const subButtons = document.getElementById('subButtons');
         
@@ -100,52 +83,6 @@
                 this.textContent = '▼ EDUCATION ▼';
             }
         });
-
-        // Firebase Code with error handling
-        try {
-            const firebaseConfig = {
-                apiKey: "ATA26@PLANETDOWAYATTgB6BNFEIno6Gp4LJ6PyE",
-                authDomain: "my-portfolio-46287.firebaseapp.com",
-                projectId: "my-portfolio-46287"
-            };
-            
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
-
-            // Visitor tracking
-            let count = localStorage.getItem('visitorCount') || 0;
-            count++;
-            localStorage.setItem('visitorCount', count);
-
-            // Update Firestore (with document creation fallback)
-            if (count % 10 === 0) {
-                db.collection("stats").doc("visitors").set(
-                    { count: firebase.firestore.FieldValue.increment(10) },
-                    { merge: true }
-                ).catch(e => console.error("Firestore error:", e));
-            }
-
-            // Admin check
-            if (window.location.hash === "#admin") {
-                const email = prompt("Admin email:");
-                const password = prompt("Password:");
-                
-                if (email && password) {
-                    firebase.auth().signInWithEmailAndPassword(email, password)
-                        .then(() => {
-                            db.collection("stats").doc("visitors").get()
-                                .then(doc => {
-                                    if (doc.exists) {
-                                        alert(`Total visitors: ${doc.data().count}`);
-                                    }
-                                });
-                        })
-                        .catch(err => alert("Access denied: " + err.message)); // Fixed extra parenthesis
-                }
-            }
-        } catch (e) {
-            console.error("Firebase initialization failed", e);
-        }
     });
 </script>
 </body>
