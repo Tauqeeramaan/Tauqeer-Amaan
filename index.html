@@ -6,16 +6,16 @@
     <title>SYED TAUQEER AMAAN - PORTFOLIO</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <body>
+    <div id="particles-js"></div>
     <div class="portfolio-container">
         <ul class="navlist">
             <li><a href="#" class="home-button">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="https://github.com/Tauqeeramaan" target="_blank">Projects</a></li>
+            <li><button id="themeToggle">🌓</button></li>
         </ul>
         <div class="left-container">
             <div class="icons">
@@ -35,13 +35,13 @@
                     </a>
                 </div>
             </div>
-            <div class="content">
+            <div class="content hidden">
                 <p class="intro">Hello! I am <span>Syed Tauqeer Amaan</span></p> 
-                <h1>Full Stack Developer<span>(Fresher)</span></h1>
+                <h1>Full Stack Developer<span></span></h1>
                 <p class="detail">I am keen and enthusiastic learner interested in the current new technologies. I am currently seeking a challenging position to contribute my technical expertise and creativity to develop innovative software solutions. I am committed to staying updated with emerging technologies to deliver cutting-edge software applications.</p>
                 <div class="btn-container">
                     <a href="https://wa.me/7975070310" target="_blank">
-                        <button>Let's Talk</button>
+                        <button class="neumorphic-btn">Let's Talk</button>
                     </a>
                 </div>
             </div>
@@ -53,140 +53,51 @@
         </div>
     </div>
 
-    <div id="adminView">admindashboard</div>
-    <section id="about">
-        <div class="about-container">
+    <div id="adminView"></div>
+    <section id="about" class="hidden">
+        <div class="about-container glass">
             <div class="about-left-content">
                 <h1>Click to know more about me</h1>
                 <div class="button-group">
-                    <button id="educationBtn" class="education-btn">EDUCATION</button>
-                    <a href="resume.pdf" class="resume-button" id="resumeDownload" download="SYED_TAUQEER_AMAAN.pdf">Download Resume</a>
+                    <button id="educationBtn" class="education-btn neumorphic-btn">EDUCATION</button>
+                    <a href="resume.pdf" class="resume-button neumorphic-btn" id="resumeDownload" download="SYED_TAUQEER_AMAAN.pdf">Download Resume</a>
                 </div>
                 <div id="subButtons" class="sub-buttons" style="display:none;">
-                    <button class="sub-btn">SCHOOL</button>
-                    <button class="sub-btn">COLLEGE</button>
-                    <button class="sub-btn">GRADUATION</button>
+                    <div class="sub-btn-container">
+                        <button class="sub-btn neumorphic-btn">SCHOOL</button>
+                        <div class="info-box">
+                            <p><strong>Infant Jesus School</strong></p>
+                            <p><strong>2019 Passout</strong></p>
+                            <p><strong>State Board</strong></p>
+                            <p><strong>Percentage: 63%</strong></p>
+                        </div>
+                    </div>
+                    <div class="sub-btn-container">
+                        <button class="sub-btn neumorphic-btn">COLLEGE</button>
+                        <div class="info-box">
+                            <p><strong>Shaheen Independent PU College</strong></p>
+                            <p><strong>2021 Passout</strong></p>
+                            <p><strong>State Board</strong></p>
+                            <p><strong>Percentage: 69%</strong></p>
+                        </div>
+                    </div>
+                    <div class="sub-btn-container">
+                        <button class="sub-btn neumorphic-btn">GRADUATION</button>
+                        <div class="info-box">
+                            <p><strong>Navodaya Institute Of Technology</strong></p>
+                            <p><strong>2025 Passout</strong></p>
+                            <p><strong>Computer Science & Engineering</strong></p>
+                            <p><strong>CGPA: 7.5/10</strong></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Firebase
-            const firebaseConfig = {
-                apiKey: "AIzaSyCE2UKIQv9vxIT6pB5NFEImo6Cp4lJ6PyE",
-                authDomain: "my-portfolio-4a287.firebaseapp.com",
-                projectId: "my-portfolio-4a287",
-                storageBucket: "my-portfolio-4a287.appspot.com",
-                messagingSenderId: "813926620943",
-                appId: "1:813926620943:web:52b2f1c433cc38ea14e87a",
-                measurementId: "G-HG3MJFVMBH"
-            };
-
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-            }
-
-            const auth = firebase.auth();
-            const db = firebase.firestore();
-
-            // Education button toggle
-            const educationBtn = document.getElementById('educationBtn');
-            const subButtons = document.getElementById('subButtons');
-            
-            educationBtn.addEventListener('click', function() {
-                if (subButtons.style.display === 'flex') {
-                    subButtons.style.display = 'none';
-                    this.textContent = 'EDUCATION';
-                } else {
-                    subButtons.style.display = 'flex';
-                    this.textContent = '▼ EDUCATION ▼';
-                }
-            });
-
-            // Resume download tracking
-            document.getElementById('resumeDownload').addEventListener('click', async function(e) {
-                try {
-                    await db.collection("downloadStats").doc("resume").set({
-                        count: firebase.firestore.FieldValue.increment(1),
-                        lastDownload: firebase.firestore.FieldValue.serverTimestamp()
-                    }, { merge: true });
-                } catch (error) {
-                    console.error("Download tracking error:", error);
-                }
-            });
-
-            // Admin panel functions
-            async function showAdminPanel() {
-                const panel = document.getElementById('adminView');
-                
-                try {
-                    const [visitorSnap, downloadSnap] = await Promise.all([
-                        db.collection("visitorStats").doc("counter").get(),
-                        db.collection("downloadStats").doc("resume").get()
-                    ]);
-
-                    panel.innerHTML = `
-                        <h3>Admin Dashboard</h3>
-                        <p><strong>Total Visitors:</strong> ${visitorSnap.exists ? visitorSnap.data().total : 0}</p>
-                        <p><strong>Resume Downloads:</strong> ${downloadSnap.exists ? downloadSnap.data().count : 0}</p>
-                        <p><strong>Last Download:</strong> ${downloadSnap.exists ? new Date(downloadSnap.data().lastDownload.seconds * 1000).toLocaleString() : 'Never'}</p>
-                        <button id="logoutBtn">Close</button>
-                    `;
-
-                    panel.style.display = 'block';
-                    
-                    document.getElementById('logoutBtn').addEventListener('click', function() {
-                        auth.signOut();
-                        panel.style.display = 'none';
-                    });
-
-                } catch (error) {
-                    panel.innerHTML = `<div style="color:red;">Error loading stats: ${error.message}</div>`;
-                }
-            }
-
-            async function handleAdminLogin() {
-                const email = prompt("Enter admin email:");
-                if (!email) return;
-                
-                const password = prompt("Enter password:");
-                if (!password) return;
-                
-                try {
-                    await auth.signInWithEmailAndPassword(email, password);
-                    await showAdminPanel();
-                } catch (error) {
-                    alert(`Login failed: ${error.message}`);
-                }
-            }
-
-            // Check for admin access
-            if (window.location.hash === "#admin") {
-                handleAdminLogin();
-            }
-
-            // Visitor counter
-            async function updateCounter() {
-                let count = parseInt(localStorage.getItem('visitorCount')) || 0;
-                count++;
-                localStorage.setItem('visitorCount', count);
-                
-                if (count % 10 === 0) {
-                    try {
-                        await db.collection("visitorStats").doc("counter").set({
-                            total: firebase.firestore.FieldValue.increment(10),
-                            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-                        }, { merge: true });
-                    } catch (error) {
-                        console.error("Error updating visitor count:", error);
-                    }
-                }
-            }
-
-            updateCounter();
-        });
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
