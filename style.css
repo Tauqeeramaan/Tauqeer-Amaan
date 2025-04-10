@@ -107,6 +107,7 @@ body {
 
 .content {
     margin-left: 3rem;
+    margin-right: 20rem;
 }
 
 .content .intro {
@@ -121,10 +122,12 @@ body {
 .content h1 {
     font-size: 60px;
     color: var(--primary-color);
+    position:relative;
+    z-index: 2;
 }
 
 .content h1 span {
-    font-size: 25px;
+    font-size: 20px;
     color: gray;
 }
 
@@ -159,6 +162,7 @@ body {
 }
 
 .circle:nth-child(2) {
+    z-index: 1;
     background-image: url("profile.JPG");
     background-size: 100%;
     width: 30rem;
