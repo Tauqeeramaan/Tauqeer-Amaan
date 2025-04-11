@@ -107,7 +107,8 @@ body {
 
 .content {
     margin-left: 3rem;
-    max-width: 600px; /* Prevents text from stretching too far */
+    margin-right: 27rem;
+    /*max-width: 600px; /* Prevents text from stretching too far */
     position: relative;
     z-index: 2; 
 }
