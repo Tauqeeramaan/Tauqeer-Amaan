@@ -107,7 +107,9 @@ body {
 
 .content {
     margin-left: 3rem;
-    margin-right: orem;
+    max-width: 600px; /* Prevents text from stretching too far */
+    position: relative;
+    z-index: 2; 
 }
 
 .content .intro {
@@ -399,4 +401,8 @@ body {
     .navlist {
         gap: 20px;
     }
+}
+.circle:nth-child(2) {
+    shape-outside: circle(50%);
+    float: right;
 }
